@@ -1,11 +1,8 @@
 from flask import Flask, request, jsonify, render_template
-#from modules.Hablar import Talker, ttsTalker
+from twilio.twiml.messaging_response import MessagingResponse
 import google.generativeai as genai
 
-
 app = Flask(__name__)
-
-#talker = Talker(ttsTalker())
 
 GOOGLE_API_KEY = "AIzaSyBv9__XrBIpfVr3ciMp4f1pVAnHqkTNskY"
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -55,6 +52,19 @@ def chat():
     response = get_response(question)
     return jsonify({'response': response})
 
+@app.route('/whatsapp', methods=['POST'])
+def whatsapp():
+    incoming_msg = request.values.get('Body', '').strip()
+    resp = MessagingResponse()
+    msg = resp.message()
+
+    if not incoming_msg:
+        msg.body("No se ha recibido ninguna pregunta.")
+    else:
+        response = get_response(incoming_msg)
+        msg.body(response)
+
+    return str(resp)
 
 @app.route('/')
 def index():
@@ -62,7 +72,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-#---------------------------------------------------------------------
-
