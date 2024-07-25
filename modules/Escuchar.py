@@ -1,7 +1,7 @@
 import io
 from pydub import AudioSegment
 import speech_recognition as sr
-import whisper
+import whisper #no descargada por el consumo de recursos
 import tempfile
 
 #con la libreria SpeechRecognizer creamos una variable que escuche el audio del micro
