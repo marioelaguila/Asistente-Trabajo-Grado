@@ -4,7 +4,7 @@ import speech_recognition as sr
 import whisper #no descargada por el consumo de recursos
 import tempfile
 
-#con la libreria SpeechRecognizer creamos una variable que escuche el audio del micro
+#con la libreria SpeechRecognizer creo una variable que escuche el audio del micro
 listener = sr.Recognizer()
 
 class Listener:
